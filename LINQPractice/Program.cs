@@ -30,9 +30,10 @@ namespace LINQPractice
             Console.WriteLine(AverageLINQ(classGrades));
             Console.WriteLine();
 
-            string name = "Sean CLennan";
+            string name = "Terrill";
             Console.WriteLine(LetterFrequency(name));
             Console.WriteLine();
+
             Console.ReadLine();
         }
         public static List<string> SubstringTH(List<string> words)
@@ -80,17 +81,10 @@ namespace LINQPractice
 
         public static string LetterFrequency(string name)
         {
-            string output = "";
-            var result =
-                from n in name.ToUpper().ToArray()
-                group n by n into letterFrequency
-                orderby letterFrequency.Key
-                select letterFrequency;
-            foreach (var value in result)
-            {
-                output += value.Key.ToString() + value.Count();
-            }
-            return output;
+            var result = name.ToUpper().Select(n => n).GroupBy(n => n).OrderBy(n => n.Key);
+            var output = result.Select(x => x.Key.ToString() + x.Count());
+
+            return String.Join("", output);
         }
     }
 }
